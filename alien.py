@@ -3,6 +3,8 @@ import random
 import pygame.image
 from pygame.sprite import Sprite
 
+from alien_bullet import AlienBullet
+
 
 class Alien(Sprite):
     """A class to model a spaceship the user can control"""
@@ -14,9 +16,9 @@ class Alien(Sprite):
          # Set the image
         self.image = pygame.image.load('assets/alien.png')
         self.rect = self.image.get_rect()
-        self.rect.topleft(x, y)
+        self.rect.topleft = (x, y)
 
-        # Set the initial starting point of the alien to use for reset in case of gameover
+        # Set the initial starting position of the alien to use for reset in case of gameover
         self.starting_x = x
         self.starting_y = y
 
@@ -36,14 +38,14 @@ class Alien(Sprite):
         self.rect.x += self.velocity * self.direction
 
         # Randomly fire a bullet
-        if random.randint(0, 1000) > 999 and self.bullet_group < 3:
+        if random.randint(0, 1000) > 999 and len(self.bullet_group) < 3:
             self.shoot_sound.play()
             self.fire()
 
 
     def fire(self):
         """Fire a bullet"""
-        pass
+        AlienBullet(self.rect.centerx, self.rect.bottom, self.bullet_group)
 
 
     def reset(self):

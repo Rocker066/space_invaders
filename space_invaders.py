@@ -1,11 +1,8 @@
 import pygame, random
 
 from settings import Settings
-from alien_bullet import AlienBullet
-from player_bullet import PlayerBullet
 from player import Player
 from game import Game
-
 
 
 class SpaceInvaders:
@@ -25,6 +22,7 @@ class SpaceInvaders:
 
         # Set the state of the game
         self.running = True
+        self.game_paused = False
 
         # Set Clock
         self.clock = pygame.time.Clock()
@@ -42,7 +40,9 @@ class SpaceInvaders:
         self.my_alien_group = pygame.sprite.Group()
 
         # Create a Game object
-        self.my_game = Game()
+        self.my_game = Game(self, self.my_player, self.my_alien_group,
+                            self.my_player_bullet_group, self.my_alien_bullet_group)
+        self.my_game.start_new_round()
 
 
     def run_game(self):
@@ -57,6 +57,11 @@ class SpaceInvaders:
                     if event.key == pygame.K_SPACE:
                         self.my_player.fire()
 
+                    # Player presses Esc key to pause and unpause the game
+                    if event.key == pygame.K_ESCAPE:
+                        self.my_game.paused_text()
+                        self.game_paused = not self.game_paused
+
             # Update the screen
             self.update()
 
@@ -66,27 +71,27 @@ class SpaceInvaders:
         # Fill the screen
         self.screen.fill(self.settings.BLACK)
 
-        # Update and display all sprite groups
-        self.my_player_group.update()
-        self.my_player_group.draw(self.screen)
+        if not self.game_paused:
+            # Update and display all sprite groups
+            self.my_player_group.update()
+            self.my_player_group.draw(self.screen)
 
-        self.my_alien_group.update()
-        self.my_alien_group.draw(self.screen)
+            self.my_alien_group.update()
+            self.my_alien_group.draw(self.screen)
 
-        self.my_player_bullet_group.update()
-        self.my_player_bullet_group.draw(self.screen)
+            self.my_player_bullet_group.update()
+            self.my_player_bullet_group.draw(self.screen)
 
-        self.my_alien_bullet_group.update()
-        self.my_alien_bullet_group.draw(self.screen)
+            self.my_alien_bullet_group.update()
+            self.my_alien_bullet_group.draw(self.screen)
 
-        # Update and draw the Game object
-        self.my_game.update()
-        self.my_game.draw()
+            # Update and draw the Game object
+            self.my_game.update()
+            self.my_game.draw()
 
-
-        # Update the screen and tick the clock
-        pygame.display.flip()
-        self.clock.tick(self.settings.FPS)
+            # Update the screen and tick the clock
+            pygame.display.flip()
+            self.clock.tick(self.settings.FPS)
 
 
 
