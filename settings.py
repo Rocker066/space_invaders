@@ -15,5 +15,6 @@ class Settings:
         # Set FPS
         self.FPS = 60
 
-        # Set value
+        # Set values
         self.SHOTS_FIRED = 3
+        self.ALIEN_BULLET_VELOCITY = 5

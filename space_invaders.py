@@ -42,6 +42,8 @@ class SpaceInvaders:
         # Create a Game object
         self.my_game = Game(self, self.my_player, self.my_alien_group,
                             self.my_player_bullet_group, self.my_alien_bullet_group)
+
+        # Start the first round of the game
         self.my_game.start_new_round()
 
 

@@ -20,7 +20,7 @@ class AlienBullet(Sprite):
         self.rect.centerx = x
         self.rect.centery = y
 
-        self.velocity = 10
+        self.velocity = self.settings.ALIEN_BULLET_VELOCITY
         bullet_group.add(self)
 
 

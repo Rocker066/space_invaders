@@ -44,7 +44,6 @@ class Player(Sprite):
             self.rect.x += self.velocity
 
 
-
     def fire(self):
         """Fire a bullet"""
         # Restrict the number of bullets fired at a time
